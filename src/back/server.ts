@@ -19,7 +19,9 @@ const start = async () => {
   nextApp.prepare().then(() => {
     payload.logger.info("Next.js started");
     app.listen(PORT, async () => {
-      payload.logger.info(`Next.js App URL: ${process.env.DB_HOST}`);
+      payload.logger.info(
+        `Next.js App URL: ${process.env.NEXT_PUBLIC_SERVER_URL}`
+      );
     });
   });
 };

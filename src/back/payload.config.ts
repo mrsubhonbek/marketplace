@@ -5,7 +5,7 @@ import { webpackBundler } from "@payloadcms/bundler-webpack";
 import path from "path";
 
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   collections: [],
   routes: {
     admin: "/sell",
@@ -23,7 +23,9 @@ export default buildConfig({
   },
   editor: slateEditor({}),
   db: mongooseAdapter({
-    url: "mongodb+srv://asd:asd@cluster.ic3wusp.mongodb.net/?retryWrites=true&w=majority",
+    url:
+      process.env.MONGODB_URL ||
+      "mongodb+srv://asd:asd@cluster.ic3wusp.mongodb.net/?retryWrites=true&w=majority",
   }),
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),
