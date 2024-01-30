@@ -1,6 +1,14 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import { ChevronRight } from "lucide-react";
-import React, { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import type SwiperType from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
 
 export const ImageSlider = ({ urls }: { urls: string[] }) => {
   const [swiper, setSwiper] = useState<null | SwiperType>(null);
@@ -38,7 +46,7 @@ export const ImageSlider = ({ urls }: { urls: string[] }) => {
               !slideConfig.isEnd,
           })}
           aria-label="next image">
-          <ChevronRight className="h-4 w-4 text-zinc-700" />{" "}
+          <ChevronRight className="h-4 w-4 text-zinc-700" />
         </button>
         <button
           onClick={(e) => {
@@ -51,7 +59,7 @@ export const ImageSlider = ({ urls }: { urls: string[] }) => {
               !slideConfig.isBeginning,
           })}
           aria-label="previous image">
-          <ChevronLeft className="h-4 w-4 text-zinc-700" />{" "}
+          <ChevronLeft className="h-4 w-4 text-zinc-700" />
         </button>
       </div>
 
