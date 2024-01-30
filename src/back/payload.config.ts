@@ -3,14 +3,21 @@ import { slateEditor } from "@payloadcms/richtext-slate";
 import { buildConfig } from "payload/config";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import path from "path";
+import { users } from "../collections/users";
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: path.resolve(__dirname, "../.env"),
+});
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
-  collections: [],
+  collections: [users],
   routes: {
     admin: "/sell",
   },
   admin: {
+    user: "users",
     bundler: webpackBundler(),
     meta: {
       titleSuffix: "- Marketplace",

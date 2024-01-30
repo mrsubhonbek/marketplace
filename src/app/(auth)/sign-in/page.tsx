@@ -2,7 +2,7 @@
 import { ZodError } from "zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
 
@@ -19,6 +19,11 @@ import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 
 const Page = () => {
+  const searchParams = useSearchParams();
+  const isSeller = searchParams.get("as") === "seller";
+  const origin = searchParams.get("origin");
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -26,7 +31,7 @@ const Page = () => {
   } = useForm<TAuthCredentialsValidator>({
     resolver: zodResolver(AuthCredentialsValidator),
   });
-  const router = useRouter();
+
   const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
     onError: (err) => {
       if (err.data?.code === "CONFLICT") {
@@ -55,15 +60,15 @@ const Page = () => {
         <div className="flex flex-col items-center space-y-2 text-center">
           <Icons.logo className="h-20 w-20" />
           <h1 className="text-2xl font-semibold tracking-tight">
-            Create an account
+            Sing in to your account
           </h1>
           <Link
             className={buttonVariants({
               variant: "link",
               className: "gap-1.5",
             })}
-            href="/sign-in">
-            Already have an account? Sign-in
+            href="/sign-up">
+            Don&apos;t have an account?
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -102,9 +107,32 @@ const Page = () => {
                   </p>
                 )}
               </div>
-              <Button>Sign up</Button>
+              <Button>Sign in</Button>
             </div>
           </form>
+
+          <div className="relative">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                or
+              </span>
+            </div>
+          </div>
+
+          {isSeller ? (
+            <Button variant="secondary" disabled={isLoading}>
+              Continue as customer
+            </Button>
+          ) : (
+            <Button variant="secondary" disabled={isLoading}>
+              Continue as seller
+            </Button>
+          )}
         </div>
       </div>
     </div>
