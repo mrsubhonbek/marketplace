@@ -1,3 +1,4 @@
+import { ProductReel } from "@/components/product/productReel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
@@ -44,6 +45,11 @@ export default function Home() {
             <Button variant="ghost">Our quality promise &rarr;</Button>
           </div>
         </section>
+        <ProductReel
+          query={{ sort: "desc", limit: 4 }}
+          href="/products?sort=recent"
+          title="Brand new"
+        />
       </Container>
       <section className="border-t border-gray-200 bg-gray-50">
         <Container className="py-20">
