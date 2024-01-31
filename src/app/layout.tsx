@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
-import { cn } from "@/lib/utils";
+import { Toaster } from "sonner";
+
 import { Navbar } from "@/components/navbar/navbar";
 import { Providers } from "@/components/providers";
-import { Toaster } from "sonner";
+import { Footer } from "@/components/footer";
+import { cn } from "@/lib/utils";
+import "./globals.css";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,6 +34,7 @@ export default function RootLayout({
           <Providers>
             <Navbar />
             <div className="flex-grow flex-1">{children}</div>
+            <Footer />
           </Providers>
         </main>
         <Toaster position="top-center" richColors />
