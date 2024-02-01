@@ -10,7 +10,7 @@ const yourOwn: Access = ({ req: { user } }) => {
   };
 };
 
-export const Orders: CollectionConfig = {
+export const orders: CollectionConfig = {
   slug: "orders",
   admin: {
     useAsTitle: "Your Orders",

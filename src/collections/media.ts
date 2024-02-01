@@ -16,7 +16,7 @@ const isAdminOrHasAccessToImages =
     };
   };
 
-export const Media: CollectionConfig = {
+export const media: CollectionConfig = {
   slug: "media",
   hooks: {
     beforeChange: [

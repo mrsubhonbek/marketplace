@@ -73,7 +73,7 @@ const isAdminOrHasAccess =
     };
   };
 
-export const Products: CollectionConfig = {
+export const products: CollectionConfig = {
   slug: "products",
   admin: {
     useAsTitle: "name",
