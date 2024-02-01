@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
-import { users } from "./collections/Users";
+import { users } from "./collections/users";
 import { slateEditor } from "@payloadcms/richtext-slate";
 import path from "path";
 import { Products } from "./collections/Products/Products";
