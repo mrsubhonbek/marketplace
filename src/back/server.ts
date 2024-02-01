@@ -19,6 +19,12 @@ const createContext = ({
 export type ExpressContext = inferAsyncReturnType<typeof createContext>;
 
 const start = async () => {
+  const webhookMiddleware = bodyParser.json({
+    verify: (req: WebhookRequest, _, buffer) => {
+      req.rawBody = buffer;
+    },
+  });
+
   const payload = await getPayloadClient({
     initOptions: {
       express: app,
