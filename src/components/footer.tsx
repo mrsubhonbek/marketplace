@@ -1,17 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import MaxWidthWrapper from "./MaxWidthWrapper";
+import { Icons } from "./Icons";
 import Link from "next/link";
-import { Container } from "./ui/container";
-import { Icons } from "./icons";
 
-export const Footer = () => {
+const Footer = () => {
   const pathname = usePathname();
   const pathsToMinimize = ["/verify-email", "/sign-up", "/sign-in"];
 
   return (
     <footer className="bg-white flex-grow-0">
-      <Container>
+      <MaxWidthWrapper>
         <div className="border-t border-gray-200">
           {pathsToMinimize.includes(pathname) ? null : (
             <div className="pb-8 pt-16">
@@ -77,7 +77,9 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </MaxWidthWrapper>
     </footer>
   );
 };
+
+export default Footer;

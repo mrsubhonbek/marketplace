@@ -1,6 +1,6 @@
-import { ProductReel } from "@/components/product/productReel";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import ProductReel from "@/components/ProductReel";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
 import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
 import Link from "next/link";
 
@@ -28,8 +28,8 @@ const perks = [
 export default function Home() {
   return (
     <>
-      <Container>
-        <section className="py-20 mx-auto text-center flex flex-col items-center max-w-3xl">
+      <MaxWidthWrapper>
+        <div className="py-20 mx-auto text-center flex flex-col items-center max-w-3xl">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Your marketplace for high-quality{" "}
             <span className="text-blue-600">digital assets</span>.
@@ -44,22 +44,24 @@ export default function Home() {
             </Link>
             <Button variant="ghost">Our quality promise &rarr;</Button>
           </div>
-        </section>
+        </div>
+
         <ProductReel
           query={{ sort: "desc", limit: 4 }}
           href="/products?sort=recent"
           title="Brand new"
         />
-      </Container>
+      </MaxWidthWrapper>
+
       <section className="border-t border-gray-200 bg-gray-50">
-        <Container className="py-20">
+        <MaxWidthWrapper className="py-20">
           <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
             {perks.map((perk) => (
-              <article
+              <div
                 key={perk.name}
                 className="text-center md:flex md:items-start md:text-left lg:block lg:text-center">
                 <div className="md:flex-shrink-0 flex justify-center">
-                  <div className="h-16 w-16 flex items-center justify-center rounded-full bg-slate-100 text-slate-900">
+                  <div className="h-16 w-16 flex items-center justify-center rounded-full bg-blue-100 text-blue-900">
                     {<perk.Icon className="w-1/3 h-1/3" />}
                   </div>
                 </div>
@@ -72,10 +74,10 @@ export default function Home() {
                     {perk.description}
                   </p>
                 </div>
-              </article>
+              </div>
             ))}
           </div>
-        </Container>
+        </MaxWidthWrapper>
       </section>
     </>
   );

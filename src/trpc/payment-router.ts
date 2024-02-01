@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { privateProcedure, router } from "./trpc";
+import { privateProcedure, publicProcedure, router } from "./trpc";
 import { TRPCError } from "@trpc/server";
+import { getPayloadClient } from "../get-payload";
+import { stripe } from "../lib/stripe";
 import type Stripe from "stripe";
-import { getPayloadClient } from "../back/getPayload";
-import { stripe } from "../lib/stipe";
 
 export const paymentRouter = router({
   createSession: privateProcedure
@@ -59,7 +59,7 @@ export const paymentRouter = router({
         const stripeSession = await stripe.checkout.sessions.create({
           success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`,
           cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/cart`,
-          payment_method_types: ["card"],
+          payment_method_types: ["card", "paypal"],
           mode: "payment",
           metadata: {
             userId: user.id,
@@ -67,6 +67,7 @@ export const paymentRouter = router({
           },
           line_items,
         });
+
         return { url: stripeSession.url };
       } catch (err) {
         return { url: null };

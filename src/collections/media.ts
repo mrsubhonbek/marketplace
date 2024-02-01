@@ -1,4 +1,4 @@
-import { User } from "../back/payload-types";
+import { User } from "../payload-types";
 import { Access, CollectionConfig } from "payload/types";
 
 const isAdminOrHasAccessToImages =
@@ -16,7 +16,7 @@ const isAdminOrHasAccessToImages =
     };
   };
 
-export const media: CollectionConfig = {
+export const Media: CollectionConfig = {
   slug: "media",
   hooks: {
     beforeChange: [
@@ -24,9 +24,6 @@ export const media: CollectionConfig = {
         return { ...data, user: req.user.id };
       },
     ],
-  },
-  admin: {
-    hidden: ({ user }) => user.role !== "admin",
   },
   access: {
     read: async ({ req }) => {
@@ -40,6 +37,9 @@ export const media: CollectionConfig = {
     },
     delete: isAdminOrHasAccessToImages(),
     update: isAdminOrHasAccessToImages(),
+  },
+  admin: {
+    hidden: ({ user }) => user.role !== "admin",
   },
   upload: {
     staticURL: "/media",

@@ -1,14 +1,13 @@
+import AddToCartButton from "@/components/AddToCartButton";
+import ImageSlider from "@/components/ImageSlider";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import ProductReel from "@/components/ProductReel";
+import { PRODUCT_CATEGORIES } from "@/config";
+import { getPayloadClient } from "@/get-payload";
+import { formatPrice } from "@/lib/utils";
+import { Check, Shield } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Check, Shield } from "lucide-react";
-
-import { Container } from "@/components/ui/container";
-import { getPayloadClient } from "@/back/getPayload";
-import { PRODUCT_CATEGORIES } from "@/config";
-import { formatPrice } from "@/lib/utils";
-import { ImageSlider } from "@/components/product/imageSlider";
-import { ProductReel } from "@/components/product/productReel";
-import { AddToCartButton } from "@/components/cart/addToCartButton";
 
 interface PageProps {
   params: {
@@ -20,6 +19,7 @@ const BREADCRUMBS = [
   { id: 1, name: "Home", href: "/" },
   { id: 2, name: "Products", href: "/products" },
 ];
+
 const Page = async ({ params }: PageProps) => {
   const { productId } = params;
 
@@ -51,9 +51,10 @@ const Page = async ({ params }: PageProps) => {
     .filter(Boolean) as string[];
 
   return (
-    <Container>
+    <MaxWidthWrapper className="bg-white">
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+          {/* Product Details */}
           <div className="lg:max-w-lg lg:self-end">
             <ol className="flex items-center space-x-2">
               {BREADCRUMBS.map((breadcrumb, i) => (
@@ -77,6 +78,7 @@ const Page = async ({ params }: PageProps) => {
                 </li>
               ))}
             </ol>
+
             <div className="mt-4">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 {product.name}
@@ -111,11 +113,15 @@ const Page = async ({ params }: PageProps) => {
               </div>
             </section>
           </div>
+
+          {/* Product images */}
           <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
             <div className="aspect-square rounded-lg">
               <ImageSlider urls={validUrls} />
             </div>
           </div>
+
+          {/* add to cart part */}
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
             <div>
               <div className="mt-10">
@@ -136,13 +142,15 @@ const Page = async ({ params }: PageProps) => {
           </div>
         </div>
       </div>
+
       <ProductReel
         href="/products"
         query={{ category: product.category, limit: 4 }}
         title={`Similar ${label}`}
         subtitle={`Browse similar high-quality ${label} just like '${product.name}'`}
       />
-    </Container>
+    </MaxWidthWrapper>
   );
 };
+
 export default Page;

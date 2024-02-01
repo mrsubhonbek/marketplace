@@ -1,16 +1,16 @@
-import { VerifyEmail } from "@/components/verifyEmail";
+import VerifyEmail from "@/components/VerifyEmail";
 import Image from "next/image";
-import React from "react";
 
-type PropsType = {
+interface PageProps {
   searchParams: {
     [key: string]: string | string[] | undefined;
   };
-};
+}
 
-const Page = ({ searchParams }: PropsType) => {
+const VerifyEmailPage = ({ searchParams }: PageProps) => {
   const token = searchParams.token;
   const toEmail = searchParams.to;
+
   return (
     <div className="container relative flex pt-20 flex-col items-center justify-center lg:px-0">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
@@ -24,7 +24,7 @@ const Page = ({ searchParams }: PropsType) => {
               <Image
                 src="/hippo-email-sent.png"
                 fill
-                alt="marketplace email sent image"
+                alt="hippo email sent image"
               />
             </div>
 
@@ -47,4 +47,4 @@ const Page = ({ searchParams }: PropsType) => {
   );
 };
 
-export default Page;
+export default VerifyEmailPage;

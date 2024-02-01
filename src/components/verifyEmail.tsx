@@ -1,18 +1,24 @@
 "use client";
+
 import { trpc } from "@/trpc/client";
 import { Loader2, XCircle } from "lucide-react";
 import Image from "next/image";
-import { buttonVariants } from "./ui/button";
 import Link from "next/link";
+import { buttonVariants } from "./ui/button";
 
-export const VerifyEmail = ({ token }: { token: string }) => {
+interface VerifyEmailProps {
+  token: string;
+}
+
+const VerifyEmail = ({ token }: VerifyEmailProps) => {
   const { data, isLoading, isError } = trpc.auth.verifyEmail.useQuery({
     token,
   });
+
   if (isError) {
     return (
       <div className="flex flex-col items-center gap-2">
-        <XCircle className="h-8 w-8 text-rose-600" />
+        <XCircle className="h-8 w-8 text-red-600" />
         <h3 className="font-semibold text-xl">There was a problem</h3>
         <p className="text-muted-foreground text-sm">
           This token is not valid or might be expired. Please try again.
@@ -20,6 +26,7 @@ export const VerifyEmail = ({ token }: { token: string }) => {
       </div>
     );
   }
+
   if (data?.success) {
     return (
       <div className="flex h-full flex-col items-center justify-center">
@@ -37,6 +44,7 @@ export const VerifyEmail = ({ token }: { token: string }) => {
       </div>
     );
   }
+
   if (isLoading) {
     return (
       <div className="flex flex-col items-center gap-2">
@@ -49,3 +57,5 @@ export const VerifyEmail = ({ token }: { token: string }) => {
     );
   }
 };
+
+export default VerifyEmail;
