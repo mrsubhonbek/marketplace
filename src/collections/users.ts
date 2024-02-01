@@ -11,7 +11,7 @@ const adminsAndUser: Access = ({ req: { user } }) => {
   };
 };
 
-export const Users: CollectionConfig = {
+export const users: CollectionConfig = {
   slug: "users",
   auth: {
     verify: {
@@ -68,3 +68,4 @@ export const Users: CollectionConfig = {
     },
   ],
 };
+export default users;
