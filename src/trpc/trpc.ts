@@ -9,7 +9,6 @@ const middleware = t.middleware;
 
 const isAuth = middleware(async ({ ctx, next }) => {
   const req = ctx.req as PayloadRequest;
-  console.log(req, "========req");
   const { user } = req as { user: User | null };
 
   if (!user || !user.id) {
